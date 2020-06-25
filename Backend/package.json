@@ -4,7 +4,9 @@
   "description": "a server for a chat application",
   "main": "API.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Package.json is installed correctly. Maybe.\"",
+    "start": "node API.js",
+    "edit-routes": "vim routes/routes.js",
   },
   "author": "",
   "license": "ISC",
