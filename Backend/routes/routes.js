@@ -12,12 +12,13 @@ const router = function (app) {
     });
 
     //user page
-    app.get('/home/', function (req, res) {
+    app.get('/home', function (req, res) {
         res.send({ message: "/home/ test" });
+        //this should send the home html file
     });
 
     //api database test area
-    app.get('/test/', function (req, res) {
+    app.get('/test', function (req, res) {
         data.query("SELECT * FROM test", function (error, result) {
             if (error) throw error;
 
@@ -26,7 +27,9 @@ const router = function (app) {
     });
 
     //new user user creation
-    app.post('/users/', function (req, res) {
+    app.post('/users', function (req, res) {
+        
+
         //add in code here that makes a new user
     });
 }
