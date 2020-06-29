@@ -16,7 +16,7 @@ var update_sub_button = function () {
 
 //any time there is a keypress, see if we need to update the password match thing and the submit button
 document.addEventListener("keyup", function (e) {
-    if (pass.value.length < 6) {
+    if (pass.value.length < 6 && pass.value.length != 0) {
         pass_match.innerHTML = "Password is not long enough";
         pass_match.style.color = "red";
         return;
