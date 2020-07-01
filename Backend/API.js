@@ -1,18 +1,16 @@
 //dependencies -- we probably need to install these on the server, but i'm not sure
 //if we do, the command is 'npm install express body-parser mysql request'
 const express = require('express');
-const routes = require('./routes/routes');
 const port = 3001;
 const app = express();
 const body_parser = require("body-parser");
-const data = require("../data/config");
 const fs = require("fs");
 const serverAddress = "l0.101.110.181";
 const mysql = require("mysql");
 const config = {
     host: "localhost",
-    user: "root",
-    password: "Dragonslayer420",
+    user: "",
+    password: "",
     database: "api",
 };
 
