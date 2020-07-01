@@ -1,34 +1,60 @@
 const data = require("../data/config");
+const fs = require("fs");
+const serverAddress = "localhost";
+
+//sends an html page to the user
+var send_page = function (res, file) {
+    console.log("Page " + file + " reqested");
+    res.writeHead(200, { "Content-Type": "text/html" });
+    var rs = fs.createReadStream("../Website/" + file);
+    rs.pipe(res);
+};
 
 // API Routes
 const router = function (app) {
-    //replace these with the website pages
-
-    //homepage
+    //this should redirect to /home
     app.get('/', function (req, res) {
-        res.send({
-            message: "server Test",
-        });
+        res.redirect(301, "http/" + serverAddress + "/home");
     });
 
-    //user page
-    app.get('/home/', function (req, res) {
-        res.send({ message: "/home/ test" });
+    //webpages
+
+    //home page
+    app.get('/home', function (req, res) {
+        send_page("home/home.html");
     });
 
-    //api database test area
-    app.get('/test/', function (req, res) {
-        data.query("SELECT * FROM test", function (error, result) {
+    //login page
+    app.get('/home', function (req, res) {
+        send_page("login/login.html");
+    });
+
+    //signup page
+    app.get('/signup', function (req, res) {
+        send_page("signup/signup.html");
+    });
+
+
+    //requests
+
+    //new user user creation
+    app.post('/users', function (req, res) {
+        //I have no idea if this works
+        data.query("INSERT INTO users name email username password VALUES ? ? ?", req.name, req.email, req.username, function (error, result) {
             if (error) throw error;
 
             res.send(result);
         })
     });
 
-    //new user user creation
-    app.post('/users/', function (req, res) {
-        //add in code here that makes a new user
-    });
+    //get user info
+    app.get("/users/:id", function (res, req){
+        data.query("SELECT * FROM users WHERE id=?", res.params.id, function (error, result) {
+            if (error) throw error;
+
+            res.send(result);
+        });
+    }
 }
 
 //export the router

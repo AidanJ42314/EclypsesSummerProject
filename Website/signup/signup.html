@@ -20,27 +20,27 @@
 
         <h1>Sign up to start chatting.</h1>
 
-        <form class="box" action="login.html" method="post">
+        <form class="box" action="http://whatever the server is/users/" method="post">
 
             <p class="enteremail">Enter your email.</p>
 
-            <input type="text" name="" placeholder="Email">
+            <input type="text" name="email" placeholder="Email">
 
             <p class="enterusername">Choose a username! (Note: This can totally be changed later!)</p>
 
-            <input type="text" name="" placeholder="Your Username">
+            <input type="text" name="username" placeholder="Your Username">
 
             <p class="enterpassword">Create a password! Passwords must be at least six characters.</p>
 
-            <input type="password" name="" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" id="pass">
 
-            <input type="password" name="" placeholder="Confirm your password">
+            <input type="password" name="confirm" placeholder="Confirm your password" id="pass_conf"> <p id="pass_match"></p>
 
             <label class="agreetos">I have read and agreed to the <a href="">Privacy Policy</a>, <a href="">Terms of Service</a>, and <a href="">Code of Conduct</a>.
 
-                <input type="checkbox">
+                <input type="checkbox" id="tosbox">
 
-                <span class="checkmark"></span>
+                <span class="checkmark" id="toscheck"></span>
 
             </label>
 
@@ -53,7 +53,7 @@
             </label>
 
             
-            <input type="submit" name="" value="Start Chatting!">
+            <input type="submit" name="" value="Start Chatting!" id="submit_button">
 
         </form>
 
@@ -68,7 +68,7 @@
         </div>
 
 
-    </header>
+    <script type="text/javascript" src ="./script.js"></script>
 
 </body>
 
