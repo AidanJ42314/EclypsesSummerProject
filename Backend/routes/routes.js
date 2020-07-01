@@ -48,13 +48,13 @@ const router = function (app) {
     });
 
     //get user info
-    app.get("/users/:id", function (res, req){
+    app.get("/users/:id", function (res, req) {
         data.query("SELECT * FROM users WHERE id=?", res.params.id, function (error, result) {
             if (error) throw error;
 
             res.send(result);
         });
-    }
+    });
 }
 
 //export the router
