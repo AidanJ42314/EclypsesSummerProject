@@ -15,6 +15,9 @@ app.use(body_parser.urlencoded({
     extended: true,
 }));
 
+//link all of the website resources in the website folder
+app.use("/static", express.static("../Website"));
+
 //start the server
 const server = app.listen(port, function (error) {
     if (error) return console.log("Error starting the server: " + error);

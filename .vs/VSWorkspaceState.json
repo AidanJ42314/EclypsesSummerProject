@@ -2,8 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\Backend",
-    "\\Backend\\routes"
+    "\\Backend\\data",
+    "\\Backend\\routes",
+    "\\Website",
+    "\\Website\\home",
+    "\\Website\\login",
+    "\\Website\\signup"
   ],
-  "SelectedNode": "\\Backend\\routes\\routes.js",
+  "SelectedNode": "\\Website\\signup\\signup.html",
   "PreviewInSolutionExplorer": false
 }
