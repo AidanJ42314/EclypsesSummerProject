@@ -27,17 +27,17 @@ app.get('/', function (req, res) {
 
 //home page
 app.get('/home', function (req, res) {
-    res.sendFile("../../Website/home/home.html", { root: __dirname });
+    res.sendFile(path.resolve("../Website/home/home.html"));
 });
 
 //login page
 app.get('/login', function (req, res) {
-    res.sendFile("../../Website/login/login.html", { root: __dirname });
+    res.sendFile(path.resolve("../Website/login/login.html"));
 });
 
 //signup page
 app.get('/signup', function (req, res) {
-    res.sendFile("../../Website/signup/signup.html", { root: __dirname });
+    res.sendFile(path.resolve("../Website/signup/signup.html"));
 });
 
 
