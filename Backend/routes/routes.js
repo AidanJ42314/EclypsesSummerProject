@@ -1,20 +1,17 @@
 const data = require("../data/config");
 const fs = require("fs");
-const serverAddress = "localhost";
+const serverAddress = "l0.101.110.181";
 
 //sends an html page to the user
 var send_page = function (res, file) {
-    console.log("Page " + file + " reqested");
-    res.writeHead(200, { "Content-Type": "text/html" });
-    var rs = fs.createReadStream("../Website/" + file);
-    rs.pipe(res);
+    res.sendFile("../../Website/" + file, {root: __dirname});
 };
 
 // API Routes
 const router = function (app) {
     //this should redirect to /home
     app.get('/', function (req, res) {
-        res.redirect(301, "http/" + serverAddress + "/home");
+        res.redirect(301, "/home");
     });
 
     //webpages
