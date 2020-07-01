@@ -63,7 +63,6 @@ app.get("/users/:id", function (res, req) {
         res.send(result);
     });
 });
-}
 
 //use the body parser
 app.use(body_parser.json());
