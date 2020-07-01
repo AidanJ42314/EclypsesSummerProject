@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Package.json is installed correctly. Maybe.\"",
     "start": "node API.js",
-    "edit-routes": "vim routes/routes.js",
+    "edit-routes": "vim routes/routes.js"
   },
   "author": "",
   "license": "ISC",
