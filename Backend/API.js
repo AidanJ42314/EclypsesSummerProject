@@ -20,7 +20,7 @@ const exp = function (userin) {
     const pool = mysql.createPool(config);
 
     //test to see if the database thing is working
-    pool.query("");
+    pool.query("INSERT INTO users (name, email) VALUES test, test@test.com");
 
     //do API routes
     //this should redirect to /home
