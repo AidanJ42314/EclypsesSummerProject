@@ -9,18 +9,21 @@ const exp = function (userin) {
     const serverAddress = "l0.101.110.181";
     const mysql = require("mysql");
     const path = require("path");
-    const config = {
+
+    //create a connection to the database
+    const connection = mysql.createConnection({
         host: "localhost",
         user: userin.user,
         password: userin.pass,
         database: "api",
-    };
-
-    //create a pool with the database
-    const pool = mysql.createPool(config);
+    })
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Database connected.");
+    })
 
     //test to see if the database thing is working
-    pool.query("INSERT INTO users (name, email) 'VALUES test', 'test@test.com'", function (err, res) {
+    connection.query("INSERT INTO users (name, email) 'VALUES test', 'test@test.com'", function (err, res) {
         if (err) throw err;
         console.log(res);
     });
