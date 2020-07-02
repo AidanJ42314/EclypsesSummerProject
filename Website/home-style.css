@@ -94,9 +94,9 @@ h1{
     text-transform: uppercase;
 }
 
-.btn-1
-{
+.btn-1 {
     background-color: rgb(83, 221, 129);
+    background-color: #d6cce0;
     font-family: "Roboto", sans-serif;
 }
 
@@ -105,8 +105,8 @@ h1{
     font-family: "Roboto", sans-serif;
 }
 
-.btn-2:hover
-{
-    background-color: rgb(83, 221, 129);
-    transition: all 0.12s ease-in;
-}
+    .btn-2:hover {
+        background-color: rgb(83, 221, 129);
+        background-color: #d6cce0;
+        transition: all 0.12s ease-in;
+    }
