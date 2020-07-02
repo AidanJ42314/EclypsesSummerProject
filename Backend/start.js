@@ -10,7 +10,7 @@ prompt.start();
 prompt.get(['database_user', 'database_pass'], function (err, res) {
     if (err) return err;
     userin.user = res.database_user;
-    userin.pass = re.database_pass;
+    userin.pass = res.database_pass;
 
     //after those have been added, pass it to the API file
     API(userin);
