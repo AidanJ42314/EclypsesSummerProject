@@ -46,7 +46,7 @@ app.get('/signup', function (req, res) {
 //new user user creation
 app.post('/users', function (req, res) {
     //I have no idea if this works
-    data.query("INSERT INTO users name email username password VALUES ? ? ?", req.name, req.email, req.username, function (error, result) {
+    data.query("INSERT INTO users name email username VALUES ? ? ?", req.name, req.email, req.username, function (error, result) {
         if (error) throw error;
 
         res.send(result);
