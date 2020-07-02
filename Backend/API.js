@@ -28,19 +28,18 @@ app.get('/', function (req, res) {
 
 //home page
 app.get('/home', function (req, res) {
-    res.sendFile(path.resolve("../Website/home/home.html"));
+    res.sendFile(path.resolve("../Website/home.html"));
 });
 
 //login page
 app.get('/login', function (req, res) {
-    res.sendFile(path.resolve("../Website/login/login.html"));
+    res.sendFile(path.resolve("../Website/login.html"));
 });
 
 //signup page
 app.get('/signup', function (req, res) {
-    res.sendFile(path.resolve("../Website/signup/signup.html"));
+    res.sendFile(path.resolve("../Website/signup.html"));
 });
-
 
 //requests
 
@@ -70,7 +69,7 @@ app.use(body_parser.urlencoded({
 }));
 
 //link all of the website resources in the website folder
-app.use("/static", express.static("../Website"));
+app.use("", express.static("../Website"));
 
 //start the server
 const server = app.listen(port, function (error) {

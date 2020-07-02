@@ -2,13 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Backend",
-    "\\Backend\\data",
-    "\\Backend\\routes",
-    "\\Website",
-    "\\Website\\home",
-    "\\Website\\login",
-    "\\Website\\signup"
+    "\\Website"
   ],
-  "SelectedNode": "\\Website\\signup\\signup.html",
+  "SelectedNode": "\\Website\\home~HEAD",
   "PreviewInSolutionExplorer": false
 }
