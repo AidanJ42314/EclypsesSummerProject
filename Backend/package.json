@@ -8,7 +8,6 @@
     "start": "node API.js",
     "edit-routes": "vim routes/routes.js"
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -16,5 +15,14 @@
     "fs": "0.0.1-security",
     "mysql": "^2.18.1",
     "path": "^0.12.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AidanJ42314/EclypsesSummerProject.git"
+  },
+  "author": "Eclypses Interns",
+  "bugs": {
+    "url": "https://github.com/AidanJ42314/EclypsesSummerProject/issues"
+  },
+  "homepage": "https://github.com/AidanJ42314/EclypsesSummerProject#readme"
 }
