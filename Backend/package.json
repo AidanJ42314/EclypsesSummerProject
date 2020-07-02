@@ -5,7 +5,7 @@
   "main": "API.js",
   "scripts": {
     "test": "echo \"Package.json is installed correctly. Maybe.\"",
-    "start": "node API.js",
+    "start": "node start.js",
     "edit-routes": "vim routes/routes.js"
   },
   "license": "ISC",
@@ -15,7 +15,7 @@
     "fs": "0.0.1-security",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
-    "readline": "^1.3.0"
+    "prompt": "^1.0.0"
   },
   "repository": {
     "type": "git",

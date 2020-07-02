@@ -1,4 +1,4 @@
-// this file appears to be some sort of test. I'll add the dependencies, but our start point is API.js, not this
+// this file appears to be some sort of test. I'll add the dependencies, but our start point is start.js, not this
 
 // requires "npm i --save-dev nodemon"
 // we can probably cut some of this down
