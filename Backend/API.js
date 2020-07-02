@@ -28,6 +28,9 @@ rl.question("Enter database password:", function (input) { config.password = inp
 //create a pool with the database
 const pool = mysql.createPool(config);
 
+//test to see if the database thing is working
+pool.query("");
+
 //do API routes
 //this should redirect to /home
 app.get('/', function (req, res) {
@@ -65,7 +68,7 @@ app.post('/users', function (req, res) {
 
 //get user info
 app.get("/users/:id", function (res, req) {
-    data.query("SELECT * FROM users WHERE id=?", res.params.id, function (error, result) {
+    pool.query("SELECT * FROM users WHERE id=?", res.params.id, function (error, result) {
         if (error) throw error;
 
         res.send(result);
