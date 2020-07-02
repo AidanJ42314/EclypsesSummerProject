@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
 });
 
 //webpages
-
+/*
 //home page
 app.get('/home', function (req, res) {
     res.sendFile(path.resolve("../Website/home.html"));
@@ -39,7 +39,7 @@ app.get('/login', function (req, res) {
 //signup page
 app.get('/signup', function (req, res) {
     res.sendFile(path.resolve("../Website/signup.html"));
-});
+});*/
 
 //requests
 
