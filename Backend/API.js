@@ -1,6 +1,5 @@
 //dependencies -- we probably need to install these on the server, but i'm not sure
 //if we do, the command is 'npm install express body-parser mysql fs path bcrypt'
-const bcrypt = require('bcrypt');
 const express = require('express');
 const port = 3001;
 const app = express();
