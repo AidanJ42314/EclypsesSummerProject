@@ -16,6 +16,7 @@ const exp = function (userin) {
         user: userin.user,
         password: userin.pass,
         database: "api",
+        insecureAuth: true,
     })
     connection.connect(function (err) {
         if (err) throw err;
