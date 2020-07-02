@@ -1,4 +1,4 @@
-const API = require("API.js");
+const API = require("./API.js");
 
 //set up prompt for getting all nessecary user info
 const prompt = require("prompt");
