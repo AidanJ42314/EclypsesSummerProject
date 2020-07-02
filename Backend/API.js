@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
 });
 
 //webpages
-/*
+
 //home page
 app.get('/home', function (req, res) {
     res.sendFile(path.resolve("../Website/home/home.html"));
@@ -41,7 +41,7 @@ app.get('/signup', function (req, res) {
     res.sendFile(path.resolve("../Website/signup/signup.html"));
 });
 
-*/
+
 //requests
 
 //new user user creation
@@ -70,7 +70,7 @@ app.use(body_parser.urlencoded({
 }));
 
 //link all of the website resources in the website folder
-app.use("", express.static("../Website"));
+app.use("/static", express.static("../Website"));
 
 //start the server
 const server = app.listen(port, function (error) {
