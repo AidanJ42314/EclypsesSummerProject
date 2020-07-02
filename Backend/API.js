@@ -1,5 +1,11 @@
-//dependencies -- we probably need to install these on the server, but i'm not sure
-//if we do, the command is "npm install express body-parser mysql fs path"
+//set up the line reader for the database username/password info
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+//dependencies --  "npm install express body-parser mysql fs path readline"
 const express = require('express');
 const port = 3001;
 const app = express();
@@ -14,6 +20,10 @@ const config = {
     password: "",
     database: "api",
 };
+
+//get someone to enter in a username and password for the database (for security)
+rl.question("Enter database username:", function (input) { config.user = input; });
+rl.question("Enter database password:", function (input) { config.password = input; });
 
 //create a pool with the database
 const pool = mysql.createPool(config);
@@ -46,7 +56,7 @@ app.get('/signup', function (req, res) {
 //new user user creation
 app.post('/users', function (req, res) {
     //I have no idea if this works
-    data.query("INSERT INTO users name email username VALUES ? ? ?", req.name, req.email, req.username, function (error, result) {
+    mysql.query("INSERT INTO users name email username VALUES ? ? ?", req.name, req.email, req.username, function (error, result) {
         if (error) throw error;
 
         res.send(result);
