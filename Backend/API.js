@@ -1,5 +1,6 @@
 const exp = function (userin) {
 
+
     //dependencies --  "npm install express body-parser mysql fs path readline"
     const express = require('express');
     const port = 3001;
@@ -51,7 +52,20 @@ const exp = function (userin) {
         res.sendFile(path.resolve("../Website/signup.html"));
     });
 
+    //chat thread selection
+    app.get('/chat/:userid/:threadid', function (req, res) {
+        res.sendFile(path.resolve("../Website/chat.html"));
+    });
+
+    //specific chat thread
+    app.get('/chat/:userid/:threadid', function (req, res) {
+        res.sendFile(path.resolve("../Website/thread.html"));
+    });
+
     //requests
+
+    //get data from database test
+    console.log(connections.query("SELECT * FROM users"));
 
     //new user user creation
     app.post('/users', function (req, res) {
@@ -64,9 +78,39 @@ const exp = function (userin) {
         })
     });
 
+    //create a thread
+    app.post('/chat/:userid', function (req, res) {
+        var threadid;
+        var otherusers = [];
+        connection.query("INSERT INTO threads (userid, created_time) VALUES (?, ?)", [req.params.userid, Date.now()], function (err, result) {
+            if (error) throw error;
+            //threadid = connection.query("");//however we get the threadid
+
+            connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [req.params.userid, threadid, ]);
+        })
+    })
+
+    //send a message
+    app.post('chat/:userid/:threadid', function (req, res) {
+        connection.query("INSERT INTO messages (threadid, contents, time_sent, senderid) VALUES (?, ?, ?, ?)", [req.params.threadid, req.body.contents, Date.now(), req.params.userid], function (err, result) {
+            if (error) throw error;
+            console.log(result);
+            res.send({ success: true });
+        });
+    });
+
+    //edit a message
+    app.put('chat/:userid/:threadid', function (req, res) {
+        connection.query("", [req.params.threadid, req.body.messageid, req.body.contents], function (err, result) {
+            if (error) throw error;
+            console.log(result);
+            res.send({ success: true });
+        });
+    });
+
     //get user info
-    app.get("/users/:id", function (res, req) {
-        connection.query("SELECT * FROM users WHERE id=?", [res.params.id], function (error, result) {
+    app.get("/users/:userid", function (res, req) {
+        connection.query("SELECT * FROM users WHERE id=?", [req.params.userid], function (error, result) {
             if (error) throw error;
             console.log(result);
             res.send(result);
