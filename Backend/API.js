@@ -11,6 +11,15 @@ const exp = function (userin) {
     const mysql = require("mysql");
     const path = require("path");
 
+    //function to separate a list strings with commas
+    var cmsp = function (values) {
+        var end = "";
+        for (var i = 0; i < values.length() - 1; i++) {
+            end += values[i] + ", ";
+        }
+        end += values[values.length - 1];
+    };
+
     //use the body parser
     app.use(body_parser.json());
     app.use(body_parser.urlencoded({
@@ -64,12 +73,6 @@ const exp = function (userin) {
 
     //requests
 
-    //get data from database test
-    connection.query("SELECT * FROM users", function (err, result) {
-        if (err) throw err;
-        console.log(result);
-    });
-
     //new user user creation
     app.post('/users', function (req, res) {
         //I have no idea if this works
@@ -83,13 +86,55 @@ const exp = function (userin) {
 
     //create a thread
     app.post('/chat/:userid', function (req, res) {
+        //this is useful later
         var threadid;
-        var otherusers = [];
+
+        //create the thread
         connection.query("INSERT INTO threads (userid, created_time) VALUES (?, ?)", [req.params.userid, Date.now()], function (err, result) {
             if (error) throw error;
-            //threadid = connection.query("");//however we get the threadid
 
-            connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [req.params.userid, threadid, ]);
+            //find the thread we just created, and put it in threadid
+            connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.params.userid], function (err, result2) {
+                if (error) throw error;
+
+                var failed_users = [];
+
+                //loop through and add all of the members to the thread
+                var members = req.body.members;
+                for (var i = 0; i < members.length; i++) {
+                    connection.query("SELECT userid FROM users WHERE name = ? LIMIT 1", [members[i]], function (err, result3) {
+                        if (err) {
+                            failed_users.push(members[i]);
+
+                            //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
+                            if (i === members.length() - 1) {
+                                if (failed_users.length() !== 0) {
+                                    res.send({ success: false, failed_users: failed_users });
+                                } else {
+                                    res.send({ success: true });
+                                }
+                            }
+                        } else {
+                            connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [result3[0].userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result2) {
+                                if (err) {
+                                    failed_users.push(members[i]);
+                                }
+
+                                //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
+                                if (i === members.length() - 1) {
+                                    if (failed_users.length() !== 0) {
+                                        res.send({ success: false, failed_users: failed_users });
+                                    } else {
+                                        res.send({ success: true });
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            
         })
     })
 
