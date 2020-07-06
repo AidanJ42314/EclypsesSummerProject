@@ -10,6 +10,12 @@ const exp = function (userin) {
     const mysql = require("mysql");
     const path = require("path");
 
+    //use the body parser
+    app.use(body_parser.json());
+    app.use(body_parser.urlencoded({
+        extended: true,
+    }));
+
     //create a connection to the database
     const connection = mysql.createConnection({
         host: "localhost",
@@ -66,12 +72,6 @@ const exp = function (userin) {
             res.send(result);
         });
     });
-
-    //use the body parser
-    app.use(body_parser.json());
-    app.use(body_parser.urlencoded({
-        extended: true,
-    }));
 
     //link all of the website resources in the website folder
     app.use("", express.static("../Website"));
