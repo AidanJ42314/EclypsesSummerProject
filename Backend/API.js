@@ -50,7 +50,8 @@ const exp = function (userin) {
     //new user user creation
     app.post('/users', function (req, res) {
         //I have no idea if this works
-        connection.query("INSERT INTO users (name email username) VALUES (? ? ?)", [req.name, req.email, req.username], function (error, result) {
+        console.log(req.body);
+        connection.query("INSERT INTO users (name email username) VALUES (? ? ?)", [req.body.name, req.body.email, req.body.username], function (error, result) {
             if (error) throw error;
             console.log(result);
             res.send(result);
