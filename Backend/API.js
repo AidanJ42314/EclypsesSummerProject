@@ -24,7 +24,7 @@ const exp = function (userin) {
     })
 
     //test to see if the database thing is working
-    connection.query("INSERT INTO users (name, email) 'VALUES test', 'test@test.com'", function (err, res) {
+    connection.query("INSERT INTO users (name, email) 'VALUES test2', 'test2@test.com'", function (err, res) {
         if (err) throw err;
         console.log(res);
     });

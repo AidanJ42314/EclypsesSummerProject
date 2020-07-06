@@ -5,6 +5,7 @@
   "main": "API.js",
   "scripts": {
     "test": "echo \"Package.json is installed correctly. Maybe.\"",
+    "dbtest": "node database test.js",
     "start": "node start.js",
     "edit-routes": "vim routes/routes.js"
   },
