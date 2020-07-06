@@ -50,7 +50,7 @@ const exp = function (userin) {
     //new user user creation
     app.post('/users', function (req, res) {
         //I have no idea if this works
-        mysql.query("INSERT INTO users (name email username) VALUES (? ? ?)", [req.name, req.email, req.username], function (error, result) {
+        connection.query("INSERT INTO users (name email username) VALUES (? ? ?)", [req.name, req.email, req.username], function (error, result) {
             if (error) throw error;
             console.log(result);
             res.send(result);
@@ -59,7 +59,7 @@ const exp = function (userin) {
 
     //get user info
     app.get("/users/:id", function (res, req) {
-        pool.query("SELECT * FROM users WHERE id=?", res.params.id, function (error, result) {
+        connection.query("SELECT * FROM users WHERE id=?", [res.params.id], function (error, result) {
             if (error) throw error;
             console.log(result);
             res.send(result);
