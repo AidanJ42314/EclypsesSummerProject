@@ -22,12 +22,6 @@ const exp = function (userin) {
         console.log("Database connected.");
     })
 
-    //test to see if the database thing is working
-    connection.query("INSERT INTO users (name, email) VALUES ('test4', 'test4@test.com')", function (err, res) {
-        if (err) throw err;
-        console.log(res);
-    });
-
     //do API routes
     //this should redirect to /home
     app.get('/', function (req, res) {
@@ -56,9 +50,9 @@ const exp = function (userin) {
     //new user user creation
     app.post('/users', function (req, res) {
         //I have no idea if this works
-        mysql.query("INSERT INTO users name email username VALUES ? ? ?", req.name, req.email, req.username, function (error, result) {
+        mysql.query("INSERT INTO users (name email username) VALUES (? ? ?)", [req.name, req.email, req.username], function (error, result) {
             if (error) throw error;
-
+            console.log(result);
             res.send(result);
         })
     });
@@ -67,7 +61,7 @@ const exp = function (userin) {
     app.get("/users/:id", function (res, req) {
         pool.query("SELECT * FROM users WHERE id=?", res.params.id, function (error, result) {
             if (error) throw error;
-
+            console.log(result);
             res.send(result);
         });
     });
