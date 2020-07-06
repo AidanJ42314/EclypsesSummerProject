@@ -65,9 +65,9 @@ const exp = function (userin) {
     //requests
 
     //get data from database test
-    connection.query("SELECT * FROM users", function (err, res) {
+    connection.query("SELECT * FROM users", function (err, result) {
         if (err) throw err;
-        console.log res;
+        console.log(result);
     });
 
     //new user user creation
