@@ -1,32 +1,41 @@
-// this file appears to be some sort of test. I'll add the dependencies, but our start point is start.js, not this
+// all of this should be placed in start.js
 
-// requires "npm i --save-dev nodemon"
-// we can probably cut some of this down
+var db = require('../models');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-const express = require('express')
-const app = express()
-const bcrypt = require('bcrypt')
-
-app.use(express.json())
-
-const users = []
-
-app.get('/users', (req, res) => {
-    res.json(users)
-})
-
-app.post('/users', async (req, res) => {
-    try {
-        salt = await bcrypt.genSalt()
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        console.log(salt)
-        console.log(hashedPassword)
-        const user = { name: req.body.name, password: hashedPassword }
-        users.push(user)
-        res.status(201).send()
-    } catch {
-        res.status(500).send()
+app.post('/signup', function (req, res) {
+  bcrypt.hash(req.body.passwordsignup, saltRounds, function (err, hash) {
+ db.User.create({
+   name: req.body.usernamesignup,
+   email: req.body.emailsignup,
+   password: hash
+   }).then(function(data) {
+    if (data) {
+    res.redirect('/home');
     }
-})
+  });
+ });
+}); 
 
-app.listen(24513)
+
+app.post('/users', function (req, res) {
+     db.User.findOne({
+          where: {
+              email: req.body.email
+                 }
+     }).then(function (user) {
+         if (!user) {
+            res.redirect('/');
+         } else {
+            bcrypt.compare(req.body.password, user.password, function (err, result) {
+        if (result == true) {
+            res.redirect('/home');
+        } else {
+         res.send('Incorrect password');
+         res.redirect('/');
+        }
+      });
+     }
+  });
+}); 
