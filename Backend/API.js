@@ -80,7 +80,7 @@ const exp = function (userin) {
         connection.query("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
             if (error) throw error;
             console.log(result);
-            res.sendFile(path.resolve("../Website/thread.html"));
+            res.sendFile(path.resolve("../Website/newuser.html"));
         })
     });
 
