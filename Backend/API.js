@@ -89,6 +89,16 @@ const exp = function (userin) {
         })
     });
 
+    //make it so usernames are all unique
+    //not sure if it works but here it is
+    app.get('/newuser', function (req, res) {
+        connection.query("ALTER TABLE users ADD UNIQUE (name) VALUES (?)", [req.body.username], function (error, result) {
+            if (error) throw error;
+            console.log(result);
+            res.send({ success: true });
+        })
+    })
+
     //create a thread
     app.post('/chat/:userid', function (req, res) {
         //this is useful later
