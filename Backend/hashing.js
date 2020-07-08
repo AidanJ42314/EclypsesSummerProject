@@ -5,17 +5,18 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 app.post('/signup', function (req, res) {
-  bcrypt.hash(req.body.passwordsignup, saltRounds, function (err, hash) {
- db.User.create({
-   name: req.body.usernamesignup,
-   email: req.body.emailsignup,
-   password: hash
-   }).then(function(data) {
-    if (data) {
-    res.redirect('/home');
-    }
-  });
- });
+    bcrypt.hash(req.body.passwordsignup, saltRounds, function (err, hash) {
+        db.User.create({
+            name: req.body.usernamesignup,
+            email: req.body.emailsignup,
+            password: hash
+        }).then(
+            function (data) {
+            if (data) {
+                res.redirect('/home');
+            }
+        });
+    });
 }); 
 
 

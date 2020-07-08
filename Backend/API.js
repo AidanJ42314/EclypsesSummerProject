@@ -1,7 +1,7 @@
 const exp = function (userin) {
 
 
-    //dependencies --  "npm install express body-parser mysql fs path readline"
+    //dependencies --  "npm install express body-parser mysql fs path readline jsonwebtoken dotenv bcrypt"
     const express = require('express');
     const port = 3001;
     const app = express();
@@ -84,6 +84,24 @@ const exp = function (userin) {
         })
     });
 
+    //login to the website
+    app.post('/login', function (req, res) {
+        connection.query("SELECT password userid FROM users WHERE name=?", [req.body.username], function (err, result) {
+            if (err) throw err;
+
+            if (result[0].password == req.body.password) {
+                token = require('crypto').randomBytes(64).toString('hex');
+                connection.query("INSERT INTO tokens (userid, created, value) VALUES (?, ?, ?)", [result[0].userid, Date.now(), token], function (err, result2) {
+                    if (err) throw err;
+
+                    res.json({ sucess: true, token: token, userid: request[0].userid});
+                    res.sendFile("../Website/thread.html");
+                })
+                
+            }
+        });
+    });
+    
     //create a thread
     app.post('/chat/:userid', function (req, res) {
         //this is useful later
@@ -123,9 +141,9 @@ const exp = function (userin) {
                                 //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
                                 if (i === members.length() - 1) {
                                     if (failed_users.length() !== 0) {
-                                        res.send({ success: false, failed_users: failed_users });
+                                        res.json({ success: false, failed_users: failed_users });
                                     } else {
-                                        res.send({ success: true });
+                                        res.json({ success: true });
                                     }
                                 }
                             });

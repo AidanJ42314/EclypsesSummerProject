@@ -1,30 +1,40 @@
-//dependencies -- 'npm i jsonwebtoken dotenv'
+//dependencies -- 'npm i jsonwebtoken dotenv crypto'
 
-const jwt = require('jsonwebtoken');
+module.exports = {
 
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return res.sendStatus(401) // if there isn't any token
+    authenticateToken: function (req, res, next) {
+        const jwt = require('jsonwebtoken');
+        const authHeader = req.headers['authorization']
+        const token = authHeader && authHeader.split(' ')[1]
+        if (token == null) return res.sendStatus(401) // if there isn't any token
   
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as String, (err: any, user: any) => {
-      console.log(err)
-      if (err) return res.sendStatus(403)
-      req.user = user
-      next() // pass the execution off to whatever request the client intended
-    })
-  }
-> require('crypto').randomBytes(64).toString('hex');
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET + "", function(err, user){
+            console.log(err)
+            if (err) return res.sendStatus(403)
+            req.user = user
+            next() // pass the execution off to whatever request the client intended
+        })
+    },
 
-const dotenv = require('dotenv');
+    something: function () { require('crypto').randomBytes(64).toString('hex'); },
 
-dotenv.config();
-process.env.TOKEN_SECRET;
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, {expiresIn: '1800s'});
-}
+    init: function() {
+        require('dotenv');
 
-const token = await res.json();
+        dotenv.config();
+        process.env.TOKEN_SECRET;
+        localStorage.setItem('token', token);
+    },
 
-localStorage.setItem('token', token);
+
+
+    generateAccessToken: function (username) {
+      return jwt.sign(username, process.env.TOKEN_SECRET, {expiresIn: '1800s'});
+    },
+
+    token: function () { await res.json(); }
+
+
+
+};
