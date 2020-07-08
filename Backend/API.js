@@ -5,6 +5,7 @@ const exp = function (userin) {
     const express = require('express');
     const port = 3001;
     const app = express();
+    const expressSession = require('express-session')
     const body_parser = require("body-parser");
     const fs = require("fs");
     const serverAddress = "l0.101.110.181";
@@ -25,6 +26,10 @@ const exp = function (userin) {
     app.use(body_parser.urlencoded({
         extended: true,
     }));
+
+    //use express
+    app.use(express.static(_dirname));
+    app.use(expressSession);
 
     //create a connection to the database
     const connection = mysql.createConnection({
@@ -101,7 +106,17 @@ const exp = function (userin) {
             }
         });
     });
-    
+
+    //make it so usernames are all unique
+    //not sure if it works but here it is
+    app.get('/newuser', function (req, res) {
+        connection.query("ALTER TABLE users ADD UNIQUE (name) VALUES (?)", [req.body.username], function (error, result) {
+            if (error) throw error;
+            console.log(result);
+            res.send({ success: true });
+        })
+    })
+
     //create a thread
     app.post('/chat/:userid', function (req, res) {
         //this is useful later
