@@ -1,8 +1,18 @@
 //elements
 var login = getElementById("login");
+var error = getElementById("error");
 
 login.onClick = function () {
-    fetch("http://10.101.110.181:300/login")
+    //when the button is clicked, try to login
+    fetch("http://10.101.110.181:3001/login")
+        //convert the response to a json
         .then(response => response.json())
-        .then(data => )
+        .then(data => {
+            //add the proper cookies
+            document.cookie = "userid=" + data.userid;
+            document.cookie = "token=" + data.token;
+            //redirect the user to a the proper page
+            window.location.href = "https://10.101.110.181:3001/chat/" + data.userid
+        })
+        .catch(function () { error.innerHTML = "Error logging in"})
 };
