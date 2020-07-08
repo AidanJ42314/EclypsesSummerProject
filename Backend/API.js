@@ -74,13 +74,13 @@ const exp = function (userin) {
     //requests
 
     //new user user creation
-    app.post('/users', function (req, res) {
+    app.post('/newuser', function (req, res) {
         //I have no idea if this works
         console.log(req.body);
         connection.query("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
             if (error) throw error;
             console.log(result);
-            res.send(result);
+            res.sendFile(path.resolve("../Website/thread.html"));
         })
     });
 
