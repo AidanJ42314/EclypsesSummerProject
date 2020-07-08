@@ -1,3 +1,4 @@
 #don't do anything with the local settings
 .vs/**
 .vs/
+.vs/slnx.sqlite
