@@ -28,7 +28,7 @@ const exp = function (userin) {
     }));
 
     //use express
-    app.use(express.static(_dirname));
+    app.use(express.static(__dirname));
     app.use(expressSession);
 
     //create a connection to the database
