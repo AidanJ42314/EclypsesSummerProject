@@ -1,7 +1,7 @@
 const exp = function (userin) {
 
 
-    //dependencies --  "npm install express body-parser mysql fs path readline jsonwebtoken dotenv bcrypt"
+    //dependencies --  "npm install express body-parser mysql fs path readline jsonwebtoken dotenv bcrypt express-session"
     const express = require('express');
     const port = 3001;
     const app = express();
@@ -29,7 +29,10 @@ const exp = function (userin) {
 
     //use express
     app.use(express.static(__dirname));
-    app.use(expressSession);
+    var secret = require('crypto').randomBytes(64).toString('hex');
+    app.use(expressSession({
+        secret: secret
+    }));
 
     //create a connection to the database
     const connection = mysql.createConnection({
@@ -41,6 +44,12 @@ const exp = function (userin) {
     connection.connect(function (err) {
         if (err) throw err;
         console.log("Database connected.");
+    })
+
+    //clear out any straggling sessions
+    connection.query("DELETE FROM tokens", function (err, result) {
+        if (err) throw err;
+        console.log("Session data cleared");
     })
 
     //do API routes
@@ -67,55 +76,65 @@ const exp = function (userin) {
     });
 
     //chat thread selection
-    app.get('/chat/:userid/:threadid', function (req, res) {
+    app.get('/chat', function (req, res) {
         res.sendFile(path.resolve("../Website/chat.html"));
     });
 
     //specific chat thread
-    app.get('/chat/:userid/:threadid', function (req, res) {
+    app.get('/chat/:threadid', function (req, res) {
         res.sendFile(path.resolve("../Website/thread.html"));
+        req.session.thread = threadid;
     });
 
     //requests
 
-    //new user user creation
+    //new user creation
     app.post('/newuser', function (req, res) {
-        //I have no idea if this works
-        console.log(req.body);
-        connection.query("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
-            if (error) throw error;
-            console.log(result);
-            res.sendFile(path.resolve("../Website/newuser.html"));
+        console.log("New user is being created.")
+        connection.query("SELECT name FROM users WHERE name=?", [req.body.name], function (err, result) {
+            if (err) throw err;
+            if (!result) {
+                connection.query("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
+                    if (error) throw error;
+                    console.log(result);
+                    res.sendFile(path.resolve("../Website/newuser.html"));
+                })
+            } else {
+                res.json({message: "name taken"})
+            }
+        })
+        
+    });
+
+    //get messages
+    app.get('/messages', function (req, res) {
+        connection.query("SELECT contents, time_sent, senderid FROM messages WHERE threadid=? ORDER BY time_sent DESC LIMIT 100", [req.session.threadid], function (err, result) {
+            if (err) throw err;
+            res.json({ messages: result });
         })
     });
+
+    //get threads
+    app.get('/threads', function (req, res) {
+        connection.query("SELECT name, threadid FROM threads WHERE uid = ? ORDER BY last_used DESC LIMIT 100", [req.session.threadid], function (err, result) {
+            if (err) throw err;
+            res.json({ threads: result });
+        })
+    })
 
     //login to the website
     app.post('/login', function (req, res) {
         connection.query("SELECT password userid FROM users WHERE name=?", [req.body.username], function (err, result) {
             if (err) throw err;
 
-            if (result[0].password == req.body.password) {
-                token = require('crypto').randomBytes(64).toString('hex');
-                connection.query("INSERT INTO tokens (userid, created, value) VALUES (?, ?, ?)", [result[0].userid, Date.now(), token], function (err, result2) {
-                    if (err) throw err;
-
-                    res.json({ sucess: true, token: token, userid: request[0].userid});
-                    res.sendFile("../Website/thread.html");
-                })
-                
+            if (result[0].password == req.body.password) {;
+                res.json({ sucecss: true });
+                req.session.userid = result[0].userid;
+                res.sendFile("../Website/thread.html"); 
             }
         });
     });
 
-    //make it so usernames are all unique
-    //not sure if it works but here it is
-    app.get('/newuser', function (req, res) {
-        connection.query("ALTER TABLE users ADD UNIQUE (name) VALUES (?)", [req.body.username], function (error, result) {
-            if (error) throw error;
-            console.log(result);
-            res.send({ success: true });
-        })
-    })
 
     //create a thread
     app.post('/chat/:userid', function (req, res) {
@@ -175,8 +194,12 @@ const exp = function (userin) {
     app.post('chat/:userid/:threadid', function (req, res) {
         connection.query("INSERT INTO messages (threadid, contents, time_sent, senderid) VALUES (?, ?, ?, ?)", [req.params.threadid, req.body.contents, Date.now(), req.params.userid], function (err, result) {
             if (error) throw error;
-            console.log(result);
-            res.send({ success: true });
+            connection.query("UPDATE threads SET last_used=? WHERE threadid=?", [Date.now(), req.params.threadid], function (err, result2) {
+                if (err) throw err;
+                console.log(result);
+                res.send({ success: true });
+            })
+            
         });
     });
 
@@ -186,15 +209,6 @@ const exp = function (userin) {
             if (error) throw error;
             console.log(result);
             res.send({ success: true });
-        });
-    });
-
-    //get user info
-    app.get("/users/:userid", function (res, req) {
-        connection.query("SELECT * FROM users WHERE id=?", [req.params.userid], function (error, result) {
-            if (error) throw error;
-            console.log(result);
-            res.send(result);
         });
     });
 
