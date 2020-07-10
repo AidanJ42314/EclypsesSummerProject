@@ -109,12 +109,21 @@ const exp = function (userin) {
         console.log("New user is being created.")
 
         dbq("SELECT name FROM users WHERE name=?", [req.body.name], function (err, result) {
+            console.log(result)
+            console.log(result)
+            console.log(result)
+            console.log(result)
+            console.log(result)
+            console.log(result)
+            console.log(result)
+            console.log(result)
+            console.log(result)
             console.log("Name check query results: " + result)
             if (err) throw err;
-            if (result.length == 0) {
-                dbq("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
+            if (!result.length) {
+                dbq("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result2) {
                     if (error) throw error;
-                    console.log(result);
+                    console.log(result2);
                     res.sendFile(path.resolve("../Website/newuser.html"));
                 })
             } else {
