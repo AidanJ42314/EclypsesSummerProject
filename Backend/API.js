@@ -71,12 +71,12 @@ const exp = function (userin) {
 
     //chat thread selection
     app.get('/chat', function (req, res) {
-        res.sendFile(path.resolve("../Website/chat.html"));
+        res.sendFile(path.resolve("../Website/thread.html"));
     });
 
     //specific chat thread
     app.get('/chat/:threadid', function (req, res) {
-        res.sendFile(path.resolve("../Website/thread.html"));
+        res.sendFile(path.resolve("../Website/chat.html"));
         req.session.thread = threadid;
     });
 

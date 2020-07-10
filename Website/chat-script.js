@@ -17,8 +17,5 @@ var update = function () {
                 pushToPage(data.messages);
             }
         })
-
-    //wait 3 seconds and do it again
-    setTimeout(update(), 3000);
 }
-update();
+setInterval(update(), 3000);
