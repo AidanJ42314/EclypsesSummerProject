@@ -46,12 +46,6 @@ const exp = function (userin) {
         console.log("Database connected.");
     })
 
-    //clear out any straggling sessions
-    connection.query("DELETE FROM tokens", function (err, result) {
-        if (err) throw err;
-        console.log("Session data cleared");
-    })
-
     //do API routes
     //this should redirect to /home
     app.get('/', function (req, res) {

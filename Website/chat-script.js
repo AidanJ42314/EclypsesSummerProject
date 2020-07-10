@@ -2,8 +2,9 @@
 var messages = document.getElementById("messages");
 
 //adds any messages in the input to the webpage
-var pushToPage = function () {
+var pushToPage = function (messages) {
     //add code here
+    console.log(messages)
 }
 
 //update the messages every so often
