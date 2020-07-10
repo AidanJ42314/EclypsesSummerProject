@@ -106,7 +106,7 @@ const exp = function (userin) {
     app.get('/messages', function (req, res) {
         console.log("User " + req.session.userid + " has just attempted to get messages from " + req.session.threadid);
 
-        connection.query("SELECT contents, time_sent, userid FROM messages WHERE a.threadid=? ORDER BY time_sent DESC LIMIT 100", [req.session.threadid], function (err, result) {
+        connection.query("SELECT contents, time_sent, senderid FROM messages WHERE a.threadid=? ORDER BY time_sent DESC LIMIT 100", [req.session.threadid], function (err, result) {
             if (err) throw err;
             res.json({ messages: result });
         })
