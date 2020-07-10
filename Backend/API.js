@@ -90,7 +90,7 @@ const exp = function (userin) {
             if (err) throw err;
             console.log(result);
             if (result.length == 0) {
-                connection.query("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
+                connection.query("INSERT INTO users (userid, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
                     if (error) throw error;
                     console.log(result);
                     res.sendFile(path.resolve("../Website/newuser.html"));
@@ -106,7 +106,7 @@ const exp = function (userin) {
     app.get('/messages', function (req, res) {
         console.log("User " + req.session.userid + " has just attempted to get messages from " + req.session.threadid);
 
-        connection.query("SELECT contents, time_sent, senderid FROM messages WHERE threadid=? ORDER BY time_sent DESC LIMIT 100", [req.session.threadid], function (err, result) {
+        connection.query("SELECT contents, time_sent, userid FROM messages WHERE a.threadid=? ORDER BY time_sent DESC LIMIT 100", [req.session.threadid], function (err, result) {
             if (err) throw err;
             res.json({ messages: result });
         })
@@ -127,7 +127,7 @@ const exp = function (userin) {
     app.post('/login', function (req, res) {
         console.log("User with name " + req.body.username + " has just attempted to log in")
 
-        connection.query("SELECT * FROM users WHERE name=?", [req.body.username], function (err, result) {
+        connection.query("SELECT * FROM users WHERE userid=?", [req.body.username], function (err, result) {
             console.log("Query returns: ")
             console.log(result)
             //yay
@@ -161,39 +161,24 @@ const exp = function (userin) {
                 //loop through and add all of the members to the thread
                 var members = req.body.members;
                 for (var i = 0; i < members.length; i++) {
-                    connection.query("SELECT userid FROM users WHERE name = ? LIMIT 1", [members[i]], function (err, result3) {
+
+                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?)", [result3[0].userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result2) {
                         if (err) {
                             failed_users.push(members[i]);
-
-                            //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
-                            if (i === members.length() - 1) {
-                                if (failed_users.length() !== 0) {
-                                    res.send({ success: false, failed_users: failed_users });
-                                } else {
-                                    res.send({ success: true });
-                                }
-                            }
-                        } else {
-                            connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [result3[0].userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result2) {
-                                if (err) {
-                                    failed_users.push(members[i]);
-                                }
-
-                                //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
-                                if (i === members.length() - 1) {
-                                    if (failed_users.length() !== 0) {
-                                        res.json({ success: false, failed_users: failed_users });
-                                    } else {
-                                        res.json({ success: true });
-                                    }
-                                }
-                            });
                         }
+
+                        //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
+                        if (i === members.length() - 1) {
+                            if (failed_users.length() !== 0) {
+                                res.json({ success: false, failed_users: failed_users });
+                            } else {
+                                res.json({ success: true });
+                            }
+                        }
+
                     });
                 }
             });
-
-            
         })
     })
 
