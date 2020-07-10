@@ -89,7 +89,7 @@ const exp = function (userin) {
         connection.query("SELECT name FROM users WHERE name=?", [req.body.username], function (err, result) {
             if (err) throw err;
             console.log(result);
-            if (result===[]) {
+            if (result.length == 0) {
                 connection.query("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result) {
                     if (error) throw error;
                     console.log(result);
