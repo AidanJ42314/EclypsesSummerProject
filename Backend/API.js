@@ -130,7 +130,7 @@ const exp = function (userin) {
         connection.query("SELECT * FROM users WHERE name=?", [req.body.username], function (err, result) {
             console.log("Query returns: ")
             console.log(result)
-
+            //yay
             if (err) throw err;
 
             if (result[0].password == req.body.password) {
