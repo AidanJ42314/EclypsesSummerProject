@@ -133,7 +133,6 @@ const exp = function (userin) {
             if (err) throw err;
 
             if (result[0].password == req.body.password) {
-                res.json({ sucecss: true });
                 req.session.userid = result[0].userid;
                 res.sendFile(path.resolve("../Website/thread.html")); 
             }
