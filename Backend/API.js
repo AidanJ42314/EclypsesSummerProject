@@ -106,7 +106,7 @@ const exp = function (userin) {
 
     //new user creation
     app.post('/newuser', function (req, res) {
-        console.log("New user is being created.")
+        console.log("New user is being created with name: " + req.body.name)
 
         dbq("SELECT name FROM users WHERE name=?", [req.body.name], function (err, result) {
             console.log(result)
@@ -120,7 +120,7 @@ const exp = function (userin) {
             console.log(result)
             console.log("Name check query results: " + result)
             if (err) throw err;
-            if (!result.length) {
+            if (result===[]) {
                 dbq("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", [req.body.username, req.body.email, req.body.password], function (error, result2) {
                     if (error) throw error;
                     console.log(result2);
