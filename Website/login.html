@@ -20,14 +20,56 @@
 
         <div class="hero">
 
-        <h2>Good to see you again.</h2>
+            <h2>Good to see you again.</h2>
 
-        <form class="box" action="http://10.101.110:3001/login/" method="post" id="login-form">
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <input type="button" value="Sign In" id="login" onclick="submit()">
-            <div id="error"></div>
-        </form>
+            <form class="box" action="http://10.101.110:3001/login/" method="post" id="login-form">
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="password" placeholder="Password">
+                <input type="button" value="Sign In" id="login" onclick="submit()">
+                <div id="error"></div>
+            </form>
+
+
+
+
+            <form class="box" action="http://10.101.110.181:3001/newuser/" method="post">
+
+                <p class="enteremail">Enter your email.</p>
+
+                <input type="text" name="email" placeholder="Email">
+
+                <p class="enterusername">Choose a username! (Note: This can totally be changed later!)</p>
+
+                <input type="text" name="username" placeholder="Your Username">
+
+                <p class="enterpassword">Create a password! Passwords must be at least six characters.</p>
+
+                <input type="password" name="password" placeholder="Password" id="pass">
+
+                <input type="password" name="confirm" placeholder="Confirm your password" id="pass_conf"> <p id="pass_match"></p>
+
+                <label class="agreetos">
+                    I have read and agreed to the <a href="">Privacy Policy</a>, <a href="">Terms of Service</a>, and <a href="">Code of Conduct</a>. In addition, I accept all cookies used by this website.
+
+                    <input type="checkbox" id="tosbox">
+
+                    <span class="checkmark" id="toscheck"></span>
+
+                </label>
+
+                <label class="agreetomail">
+                    I wish to receive monthly newsletters in my inbox. (Note: You can unsubsribe anytime.)
+
+                    <input type="checkbox">
+
+                    <span class="checkmark"></span>
+
+                </label>
+
+
+                <input type="submit" name="" value="Start Chatting!" id="submit_button">
+
+            </form>
 
         </div>
 
