@@ -126,7 +126,7 @@ const exp = function (userin) {
     app.post('/login', function (req, res) {
         console.log("User with name " + req.body.username + " has just attempted to log in")
 
-        connection.query("SELECT password userid FROM users WHERE name=?", [req.body.username], function (err, result) {
+        connection.query("SELECT * FROM users WHERE name=?", [req.body.username], function (err, result) {
             console.log("Query returns: ")
             console.log(result)
 
