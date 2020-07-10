@@ -124,9 +124,12 @@ const exp = function (userin) {
 
     //login to the website
     app.post('/login', function (req, res) {
-        console.log("User with name" + req.body.username + " has just attempted to log in")
+        console.log("User with name " + req.body.username + " has just attempted to log in")
 
         connection.query("SELECT password userid FROM users WHERE name=?", [req.body.username], function (err, result) {
+            console.log("Query returns: ")
+            console.log(result)
+
             if (err) throw err;
 
             if (result[0].password == req.body.password) {;
