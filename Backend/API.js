@@ -134,7 +134,7 @@ const exp = function (userin) {
 
             if (result[0].password == req.body.password) {
                 req.session.userid = result[0].userid;
-                res.sendFile(path.resolve("../Website/thread.html")); 
+                res.redirect("../chat"); 
             }
         });
     });
