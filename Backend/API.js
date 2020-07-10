@@ -85,6 +85,7 @@ const exp = function (userin) {
     //new user creation
     app.post('/newuser', function (req, res) {
         console.log("New user is being created.")
+
         connection.query("SELECT name FROM users WHERE name=?", [req.body.name], function (err, result) {
             if (err) throw err;
             if (!result) {
@@ -102,6 +103,8 @@ const exp = function (userin) {
 
     //get messages
     app.get('/messages', function (req, res) {
+        console.log("User " + req.session.userid + " has just attempted to get messages from " + req.session.threadid);
+
         connection.query("SELECT contents, time_sent, senderid FROM messages WHERE threadid=? ORDER BY time_sent DESC LIMIT 100", [req.session.threadid], function (err, result) {
             if (err) throw err;
             res.json({ messages: result });
@@ -110,6 +113,8 @@ const exp = function (userin) {
 
     //get threads
     app.get('/threads', function (req, res) {
+        console.log("User" + req.session.userid + " has just attempted to get their threads")
+
         connection.query("SELECT name, threadid FROM threads WHERE uid = ? ORDER BY last_used DESC LIMIT 100", [req.session.threadid], function (err, result) {
             if (err) throw err;
             res.json({ threads: result });
@@ -118,6 +123,8 @@ const exp = function (userin) {
 
     //login to the website
     app.post('/login', function (req, res) {
+        console.log("User with name" + req.body.username + " has just attempted to log in")
+
         connection.query("SELECT password userid FROM users WHERE name=?", [req.body.username], function (err, result) {
             if (err) throw err;
 
@@ -131,16 +138,18 @@ const exp = function (userin) {
 
 
     //create a thread
-    app.post('/chat/:userid', function (req, res) {
+    app.post('/chat/', function (req, res) {
+        console.log("User " + req.session.userid + "has just tried to create a new thread")
+
         //this is useful later
         var threadid;
 
         //create the thread
-        connection.query("INSERT INTO threads (userid, created_time) VALUES (?, ?)", [req.params.userid, Date.now()], function (err, result) {
+        connection.query("INSERT INTO threads (userid, created_time) VALUES (?, ?)", [req.session.userid, Date.now()], function (err, result) {
             if (error) throw error;
 
             //find the thread we just created, and put it in threadid
-            connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.params.userid], function (err, result2) {
+            connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.session.userid], function (err, result2) {
                 if (error) throw error;
 
                 var failed_users = [];
@@ -185,10 +194,12 @@ const exp = function (userin) {
     })
 
     //send a message
-    app.post('chat/:userid/:threadid', function (req, res) {
-        connection.query("INSERT INTO messages (threadid, contents, time_sent, senderid) VALUES (?, ?, ?, ?)", [req.params.threadid, req.body.contents, Date.now(), req.params.userid], function (err, result) {
+    app.post('chat/:threadid', function (req, res) {
+        console.log("User " + req.session.userid + " has just tried to send a message with the contents: '" + req.body.contents + "'")
+
+        connection.query("INSERT INTO messages (threadid, contents, time_sent, senderid) VALUES (?, ?, ?, ?)", [req.session.threadid, req.body.contents, Date.now(), req.params.userid], function (err, result) {
             if (error) throw error;
-            connection.query("UPDATE threads SET last_used=? WHERE threadid=?", [Date.now(), req.params.threadid], function (err, result2) {
+            connection.query("UPDATE threads SET last_used=? WHERE threadid=?", [Date.now(), req.session.threadid], function (err, result2) {
                 if (err) throw err;
                 console.log(result);
                 res.send({ success: true });
@@ -198,7 +209,9 @@ const exp = function (userin) {
     });
 
     //edit a message
-    app.put('chat/:userid/:threadid', function (req, res) {
+    app.put('chat/:threadid', function (req, res) {
+        console.log("User " + req.session.userid + " has just tried to edit a message so that it now reads " + req.body.contents)
+
         connection.query("", [req.params.threadid, req.body.messageid, req.body.contents], function (err, result) {
             if (error) throw error;
             console.log(result);
