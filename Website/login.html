@@ -22,10 +22,10 @@
 
         <h2>Good to see you again.</h2>
 
-        <form class="box" action="http://10.101.110:3001/login" method="post">
+        <form class="box" action="http://10.101.110:3001/login/" method="post" id="login-form">
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
-            <input type="submit" name="" value="Sign In" id="login">
+            <input type="button" value="Sign In" id="login" onclick="submit()">
             <div id="error"></div>
         </form>
 

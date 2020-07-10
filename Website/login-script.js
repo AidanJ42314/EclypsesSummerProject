@@ -1,10 +1,12 @@
 //actually, I don't think we even need a script here
 
 //elements
-var login = getElementById("login");
-var error = getElementById("error");
+//var login = getElementById("login");
+//var error = getElementById("error");
 
-
+function submit() {
+    document.getElementById("login-form").submit();
+}
 /*
 
 
