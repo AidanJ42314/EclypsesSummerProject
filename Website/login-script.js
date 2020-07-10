@@ -1,9 +1,11 @@
 //actually, I don't think we even need a script here
 
-/*elements
+//elements
 var login = getElementById("login");
 var error = getElementById("error");
 
+
+/*
 
 
 //This function doesn't work
