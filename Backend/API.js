@@ -77,7 +77,7 @@ const exp = function (userin) {
     //specific chat thread
     app.get('/chat/:threadid', function (req, res) {
         res.sendFile(path.resolve("../Website/chat.html"));
-        req.session.thread = threadid;
+        req.session.thread = req.params.threadid;
     });
 
     //requests
