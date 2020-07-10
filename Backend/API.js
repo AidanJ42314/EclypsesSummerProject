@@ -118,7 +118,7 @@ const exp = function (userin) {
 
         connection.query("SELECT b.threadid, a.name FROM utjoin a, threads b WHERE a.userid=? ORDER BY b.last_used DESC LIMIT 100", [req.session.threadid], function (err, result) {
             if (err) throw err;
-            console.log(error);
+            console.log(result);
             res.json({ threads: result });
         })
     })
