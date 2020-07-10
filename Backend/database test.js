@@ -12,7 +12,7 @@ connection.connect(function (err) {
 
 var test = "test3";
 var testemail = "test3@test.com";
-connection.query("INSERT INTO users (name, email) VALUES (?, ?)",[test, testemail], function (err, res){
+dbq("INSERT INTO users (name, email) VALUES (?, ?)",[test, testemail], function (err, res){
     if (err) throw err;
     console.log(res);
 });
