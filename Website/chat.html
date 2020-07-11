@@ -1,18 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="http://10.101.110.181:3001/general-styles.css" rel="stylesheet" type="text/css">
-    <title>Threads Chat</title>
+    <link href="chat-styles.css" rel="stylesheet" type="text/css">
+    <title>Chat Home - Threads</title>
 </head>
 <body>
-    <h1>Threads Chat</h1>
-
     <form id="temp connect"></form>
 
-    <div id="threads">
+    <div id="threads-app">
+        <div class="app">
+            <nav class="logo">
+                <a href = ""><img src="threads temp logo.png"><a>
+            </nav>
+            <div class="main-chat-window">
+                <p>Due to the time constraints, this is the very oversimplified version of the UI originally planned. This is meant to get the basic send and receive portion of Threads to work. The sample message below is a placeholder version of an actual message.</p>
 
+                <div class="sample-message">
+                    <div class="msg-header" role="document">
+                        <img class="profile-img" src="temp user pfp.png">
+                        <h2 class="username">
+                            <span class="username"role="button">User's Username</span>
+                        </h2>
+                    </div>
+                    <div class="msg-content">
+                        This is a sample message. This page will need heavy JS implemention.
+                    </div>
+                
+                <div class="chatbox">
+                    <input type="text" id="msg">
+                </div>
+                <div class="send-btn">
+                    <input type="submit" value="Send">
+                </div>
+
+                </div>
+            </div>
+        </div>
     </div>
-
     <script type="text/javascript" src="10.101.110.181:3001/chat-script.js"></script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+*
+
+{
+    margin: 0;
+    padding: 0;
+
+}
+
+
+.await_verify
+{
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    font-size: 20px;
+}
+
+.resend
+{
+    margin-top: 200px;
+}
+.resend_email
+{
+
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
+
+.trouble
+{
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+}
