@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Settings</title>
+    <link href="http://10.101.110.181:3001/general-styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <header>
+
+        <div class="row">
+            <ul class="main-nav">
+            <li class="active"> <a href=""> HOME </a> </li>
+            <li> <a href=""> ABOUT </a> </li>
+            <li> <a href="http://10.101.110.181:3001/login"> LOGIN </a> </li>
+            <li> <a href="http://10.101.110.181:3001/signup"> SIGN UP </a> </li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="hero">
+
+        <h1>Sign up to start chatting.</h1> 
+
+        <form class="box" action="http://10.101.110.181:3001/users/" method="post">
+
+            <p class="enteremail">Enter a new email?</p>
+
+            <input type="text" name="email" placeholder="Email">
+
+            <p class="enterusername">Choose a new username?</p>
+
+            <input type="text" name="username" placeholder="Your Username">
+
+            <p class="enterpassword">Enter your old password, then your new password!</p>
+
+            <input type="password" name="password" placeholder="Password" id="pass" minlength = "6">
+
+            <input type="password" name="password" placeholder="New Password" id="pass" minlength = "6">
+          
+
+            <label class="agreetomail">Unsubscribe from monthly newsletters?
+
+                <button type = "button"> Unsubscribe! </button>
+            </label>
+
+            
+            <input type="submit" name="" value="Confirm" id="submit_button">
+
+        </form>
+
+        </div>
+
+</body>
+
+</html>
