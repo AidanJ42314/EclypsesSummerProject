@@ -26,7 +26,7 @@
 
             <p class="enteremail">Enter your email.</p>
 
-            <input type="text" name="email" placeholder="Email">
+            <input type="text" name="email" placeholder="Email" required>
 
             <p class="enterusername">Choose a username! (Note: This can totally be changed later!)</p>
 
@@ -34,9 +34,9 @@
 
             <p class="enterpassword">Create a password! Passwords must be at least six characters.</p>
 
-            <input type="password" name="password" placeholder="Password" id="pass">
+            <input type="password" name="password" placeholder="Password" id="pass" minlength = "6" required>
 
-            <input type="password" name="confirm" placeholder="Confirm your password" id="pass_conf"> <p id="pass_match"></p>
+            <input type="password" name="confirm" placeholder="Confirm your password" id="pass_conf"> <p id="pass_match" required></p>
           
             <label class="agreetos">I have read and agreed to the <a href="">Privacy Policy</a>, <a href="">Terms of Service</a>, and <a href="">Code of Conduct</a>. In addition, I accept all cookies used by this website.
 
