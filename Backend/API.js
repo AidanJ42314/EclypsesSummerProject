@@ -159,7 +159,7 @@ const exp = function (userin) {
                 var members = req.body.members;
                 for (var i = 0; i < members.length; i++) {
 
-                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?)", [result3[0].userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
+                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?)", [req.session.userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
                         if (err) {
                             failed_users.push(members[i]);
                         }
