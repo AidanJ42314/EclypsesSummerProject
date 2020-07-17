@@ -143,7 +143,7 @@ const exp = function (userin) {
 
     //create a thread
     app.post('/threads/', function (req, res) {
-        console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members)
+        console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members + " and body " + req.body)
 
         //create the thread
         connection.query("INSERT INTO threads (userid, created_time, last_used) VALUES (?, ?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
