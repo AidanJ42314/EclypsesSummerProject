@@ -146,7 +146,7 @@ const exp = function (userin) {
         console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members)
 
         //create the thread
-        connection.query("INSERT INTO threads (userid, created_time, last_used) VALUES (?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
+        connection.query("INSERT INTO threads (userid, created_time, last_used) VALUES (?, ?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
             if (err) throw err;
 
             //find the thread we just created, and put it in threadid
