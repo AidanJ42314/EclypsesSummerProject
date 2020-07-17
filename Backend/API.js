@@ -165,7 +165,7 @@ const exp = function (userin) {
                         }
 
                         //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
-                        if (i === members.length() - 1) {
+                        if (i === members.length - 1) {
                             if (failed_users.length !== 0) {
                                 res.json({ success: false, failed_users: failed_users });
                             } else {
