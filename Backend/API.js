@@ -26,7 +26,7 @@ const exp = function (userin) {
     app.use(body_parser.urlencoded({
         extended: true,
     }));
-
+    
     //use express
     app.use(express.static(__dirname));
     var secret = require('crypto').randomBytes(64).toString('hex');
