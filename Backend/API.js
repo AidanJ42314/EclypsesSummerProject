@@ -143,15 +143,15 @@ const exp = function (userin) {
 
     //create a thread
     app.post('/threads/', function (req, res) {
-        console.log("User " + req.session.userid + "has just tried to create a new thread")
+        console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members)
 
         //create the thread
         connection.query("INSERT INTO threads (userid, created_time) VALUES (?, ?)", [req.session.userid, Date.now()], function (err, result) {
-            if (error) throw error;
+            if (err) throw error;
 
             //find the thread we just created, and put it in threadid
             connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.session.userid], function (err, result2) {
-                if (error) throw error;
+                if (err) throw error;
 
                 var failed_users = [];
 
