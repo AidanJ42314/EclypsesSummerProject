@@ -157,26 +157,18 @@ const exp = function (userin) {
 
                 console.log("thread with id " + result2[0].threadid + " created")
 
-                var failed_users = [];
-
                 //loop through and add all of the members to the thread
                 var members = req.body.members;
 
                 //use recursion to do this properly maybe?
                 var addutjoin = function (err, result3, solution = false) {
                     if (!solution) {
+                        if (err) throw err;
 
-                        if (err) {
-                            failed_users.push(members[i]);
-                        }
-
-                        console.log("message thing from userid " + members[i] + ": " + result3)
+                        console.log("message thing from userid " + members[members.length-1] + ": " + result3)
 
                         //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members -- NOT
                         if (members.length == 0) {
-                            if (failed_users.length !== 0) {
-                                //yea not using this
-                            }
                             res.redirect("/" + result2[0].threadid)
                         } else {
                             connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members.pop(), result2[0].threadid, cmsp(members.splice(i))], addutjoin);
