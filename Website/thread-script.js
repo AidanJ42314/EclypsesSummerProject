@@ -1,5 +1,6 @@
 //elements
 var usersDOC = document.getElementById("users");
+var userbox = document.getElementById("userbox");
 
 //adds any threads in the input to the webpage
 var pushToPage = function (threads) {
@@ -28,7 +29,8 @@ update();
 //add a user to the new thread list
 var users = [];
 var addUser = function () {
-    users.push();
+    users.push(userbox.value);
+    value = "";
     usersDOC.innerHTML = "Users:";
     for (var i = 0; i < users.length; i++) {
         usersDOC.innerHTML += users[i] + "\n";
