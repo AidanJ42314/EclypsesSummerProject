@@ -141,7 +141,6 @@ const exp = function (userin) {
         });
     });
 
-
     //create a thread
     app.post('/threads/', function (req, res) {
         console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members + " and body " + req.body)
@@ -162,26 +161,33 @@ const exp = function (userin) {
 
                 //loop through and add all of the members to the thread
                 var members = req.body.members;
-                members.push(req.session.userid);
-                for (var i = 0; i < members.length; i++) {
 
-                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members[i], result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
+                //use recursion to do this properly maybe?
+                var addutjoin = function (err, result3, solution = false) {
+                    if (!solution) {
+
                         if (err) {
                             failed_users.push(members[i]);
                         }
 
                         console.log("message thing from userid " + members[i] + ": " + result3)
 
-                        //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
-                        if (i === members.length - 1) {
+                        //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members -- NOT
+                        if (members.length == 0) {
                             if (failed_users.length !== 0) {
                                 //yea not using this
                             }
                             res.redirect("/" + result2[0].threadid)
+                        } else {
+                            connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members.pop(), result2[0].threadid, cmsp(members.splice(i))], addutjoin);
                         }
-
-                    });
+                    } else {
+                        connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [req.session.userid, result2[0].threadid, cmsp(members.splice(i))], addutjoin);
+                    }
                 }
+
+                //start that recursion
+                addutjoin(null, null, true);
             });
         })
     })
