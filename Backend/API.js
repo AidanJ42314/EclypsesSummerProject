@@ -86,7 +86,7 @@ const exp = function (userin) {
     app.post('/newuser', function (req, res) {
         console.log("New user is being created.")
 
-        connection.query("SELECT name FROM users WHERE name=?", [req.body.username], function (err, result) {
+        connection.query("SELECT name FROM users WHERE userid=?", [req.body.username], function (err, result) {
             if (err) throw err;
             console.log(result);
             if (result.length == 0) {
@@ -144,9 +144,6 @@ const exp = function (userin) {
     //create a thread
     app.post('/chat/', function (req, res) {
         console.log("User " + req.session.userid + "has just tried to create a new thread")
-
-        //this is useful later
-        var threadid;
 
         //create the thread
         connection.query("INSERT INTO threads (userid, created_time) VALUES (?, ?)", [req.session.userid, Date.now()], function (err, result) {

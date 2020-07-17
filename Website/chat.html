@@ -10,29 +10,17 @@
     <div id="threads-app">
         <div class="app">
             <nav class="logo">
-                <a href = ""><img src="threads temp logo.png"><a>
+                <a href = "http://10.101.110.181:3001/threads"><img src="threads temp logo.png"><a>
             </nav>
             <div class="main-chat-window">
-                <p>Due to the time constraints, this is the very oversimplified version of the UI originally planned. This is meant to get the basic send and receive portion of Threads to work. The sample message below is a placeholder version of an actual message.</p>
 
-                <div class="sample-message">
-                    <div class="msg-header" role="document">
-                        <img class="profile-img" src="temp user pfp.png">
-                        <h2 class="username">
-                            <span class="username"role="button">User's Username</span>
-                        </h2>
-                    </div>
-                    <div class="msg-content">
-                        This is a sample message. This page will need heavy JS implemention.
-                    </div>
+                <div class="messages"></div>
                 
                 <div class="chatbox">
                     <input type="text" id="msg">
                 </div>
                 <div class="send-btn">
-                    <input type="submit" value="Send">
-                </div>
-
+                    <input type="submit" value="Send" id="sub_btn">
                 </div>
             </div>
         </div>

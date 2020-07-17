@@ -5,12 +5,24 @@
     <title>Threads Chat</title>
 </head>
 <body>
-    <h1>Threads Chat</h1>
+    <div id="threads-app">
+        <div class="app">
+            <nav class="logo">
+                <img src="threads temp logo.png">
+            </nav>
+            <div class="main-chat-window">
+                New Thread
+                <form id="newthread">
+                    <input type="text" placeholder="Enter User" id="userbox"> <input type="button" value="Add" onclick="addUser();">
+                    <div id="users">Users:</div>
+                    <input type="button" value="Clear" onclick="users = [];"> <input type="button" onclick="newThread();" value="Create">
+                </form>
 
-    <form id="temp connect"></form>
 
-    <div id="messages">
-
+                Select a Thread
+                <div class="threads"></div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="10.101.110.181:3001/thread-script.js"></script>
