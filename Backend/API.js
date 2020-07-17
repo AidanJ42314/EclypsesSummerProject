@@ -158,8 +158,10 @@ const exp = function (userin) {
                 console.log("thread with id " + result2[0].threadid + " created")
 
                 //loop through and add all of the members to the thread
-                var members = req.body.members;
-                var full_members = req.body.members.push(req.session.userid);
+                var members = req.body.members.push(req.session.userid);
+                var full_members = members;
+
+                console.log("name should be: " + cmsp(full_members))
 
                 //use recursion to do this properly maybe?
                 var addutjoin = function (err, result3, solution = false) {
@@ -175,7 +177,7 @@ const exp = function (userin) {
                             connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members.pop(), result2[0].threadid, cmsp(full_members)], addutjoin);
                         }
                     } else {
-                        connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [req.session.userid, result2[0].threadid, cmsp(full_members)], addutjoin);
+                        connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members.pop(), result2[0].threadid, cmsp(full_members)], addutjoin);
                     }
                 }
 
