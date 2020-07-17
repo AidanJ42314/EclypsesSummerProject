@@ -169,7 +169,7 @@ const exp = function (userin) {
                             failed_users.push(members[i]);
                         }
 
-                        console.log("message thing from userid " + members[i].userid + ": " + result3)
+                        console.log("message thing from userid " + members[i] + ": " + result3)
 
                         //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
                         if (i === members.length - 1) {
