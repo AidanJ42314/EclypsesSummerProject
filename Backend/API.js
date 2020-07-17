@@ -117,7 +117,7 @@ const exp = function (userin) {
     app.get('/threads', function (req, res) {
         console.log("User " + req.session.userid + " has just attempted to get their threads")
 
-        connection.query("SELECT b.threadid, a.name FROM utjoin a, threads b WHERE a.userid=? OR ORDER BY b.last_used DESC LIMIT 100", [req.session.userid], function (err, result) {
+        connection.query("SELECT b.threadid, a.name FROM utjoin a, threads b WHERE a.userid=? ORDER BY b.last_used DESC LIMIT 100", [req.session.userid], function (err, result) {
             if (err) throw err;
             console.log(result);
             res.json({ threads: result });
