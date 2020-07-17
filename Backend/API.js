@@ -117,7 +117,7 @@ const exp = function (userin) {
     app.get('/threads', function (req, res) {
         console.log("User " + req.session.userid + " has just attempted to get their threads")
 
-        connection.query("SELECT b.threadid, a.name FROM utjoin a, threads b WHERE a.userid=? ORDER BY b.last_used DESC LIMIT 100", [req.session.userid], function (err, result) {
+        connection.query("SELECT b.threadid, a.name FROM utjoin a, threads b WHERE a.userid=? OR ORDER BY b.last_used DESC LIMIT 100", [req.session.userid], function (err, result) {
             if (err) throw err;
             console.log(result);
             res.json({ threads: result });
@@ -146,13 +146,13 @@ const exp = function (userin) {
         console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members + " and body " + req.body)
 
         //create the thread
-        connection.query("INSERT INTO threads (userid, created_time, last_used) VALUES (?, ?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
+        connection.query("INSERT INTO threads (creatorid, created_time, last_used) VALUES (?, ?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
             if (err) throw err;
 
             console.log("creating thread")
 
             //find the thread we just created, and put it in threadid
-            connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.session.userid], function (err, result2) {
+            connection.query("SELECT threadid FROM threads WHERE creatorid=? ORDER BY created_time DESC LIMIT 1", [req.session.userid], function (err, result2) {
                 if (err) throw err;
 
                 console.log("thread with id " + result2[0].threadid + " created")

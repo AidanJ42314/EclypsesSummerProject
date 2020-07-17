@@ -1,6 +1,7 @@
 //elements
 var usersDOC = document.getElementById("users");
 var userbox = document.getElementById("userbox");
+var threadsDOC = document.getElementById("threads")
 
 //adds any threads in the input to the webpage
 var pushToPage = function (threads) {
@@ -8,7 +9,7 @@ var pushToPage = function (threads) {
     for (var i = 0; i < threads.length; i++) {
         let thtml = "<a href=\"" + location.href + "/" + threads[i].threadid>"\">" + threads[i].name + "</a>\n";
 
-        messages.innerHTML += thtml;
+        threadsDOC.innerHTML += thtml;
     }
 }
 
