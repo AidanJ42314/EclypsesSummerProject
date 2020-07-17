@@ -43,5 +43,5 @@ var addUser = function () {
 
 //create a thread with the selected users
 var newThread = function () {
-    sendJSON({ members: users });
+    sendJSON({ members: users }, "http://10.101.110.181:3001/threads");
 }
