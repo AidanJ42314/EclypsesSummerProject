@@ -43,10 +43,10 @@ var addUser = function () {
 
 //create a thread with the selected users
 var newThread = function () {
-    fetch("http://10.101.110.181:3001/threads", {
+    fetch("http://10.101.110.181:3001/threads", JSON.stringify({
         method: "post",
         body: {
-            members: users
+            members: us
         }
-    })
+    ))
 }

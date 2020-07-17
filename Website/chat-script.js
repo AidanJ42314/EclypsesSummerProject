@@ -28,10 +28,11 @@ var update = function () {
 
 //send a message
 sub_btn.addEventListener("click", function () {
-    fetch(location.href, {
+    fetch(location.href, JSON.stringify({
         method: "post",
         body: {"contents": msg.value}
-    })
+    }))
+    msg.value = "";
 })
 
 setInterval(update, 3000);
