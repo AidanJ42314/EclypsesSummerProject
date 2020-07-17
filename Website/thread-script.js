@@ -6,11 +6,12 @@ var threadsDOC = document.getElementById("threads")
 //adds any threads in the input to the webpage
 var pushToPage = function (threads) {
     //add code here
+    var end = ""
     for (var i = 0; i < threads.length; i++) {
         let thtml = "<a href=\"" + location.href + "/" + threads[i].threadid>"\">" + threads[i].name + "</a>\n";
-
-        threadsDOC.innerHTML += thtml;
+        end += thtml;
     }
+    threadsDOC.innerHTML = end;
 }
 
 //get the threads
