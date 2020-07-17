@@ -142,7 +142,7 @@ const exp = function (userin) {
 
 
     //create a thread
-    app.post('/chat/', function (req, res) {
+    app.post('/threads/', function (req, res) {
         console.log("User " + req.session.userid + "has just tried to create a new thread")
 
         //create the thread
