@@ -19,6 +19,7 @@ const exp = function (userin) {
             end += values[i] + ", ";
         }
         end += values[values.length - 1];
+        return end;
     };
 
     //use the body parser
@@ -161,7 +162,7 @@ const exp = function (userin) {
 
                 //loop through and add all of the members to the thread
                 var members = req.body.members;
-                members.push(req.session.userID);
+                members.push(req.session.userid);
                 for (var i = 0; i < members.length; i++) {
 
                     connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members[i], result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
