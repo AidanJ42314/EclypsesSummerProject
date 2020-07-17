@@ -28,10 +28,10 @@ var update = function () {
 
 //send a message
 sub_btn.addEventListener("click", function () {
-    fetch(location.href, JSON.stringify({
+    fetch(location.href, {
         method: "post",
-        body: {"contents": msg.value}
-    }))
+        body: JSON.stringify({"contents": msg.value})
+    })
     msg.value = "";
 })
 
