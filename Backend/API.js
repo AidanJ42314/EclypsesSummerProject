@@ -143,7 +143,7 @@ const exp = function (userin) {
 
     //create a thread
     app.post('/threads/', function (req, res) {
-        console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members + " and body " + req.body)
+        console.log("User " + req.session.userid + " has just tried to create a new thread with users " + req.body.members + " and body " + JSON.stringify(req.body))
 
         //create the thread
         connection.query("INSERT INTO threads (creatorid, created_time, last_used) VALUES (?, ?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
@@ -161,7 +161,7 @@ const exp = function (userin) {
                 var members = req.body.members.push(req.session.userid);
                 var full_members = members;
 
-                console.log("name should be: " + cmsp(full_members))
+                console.log("name should be: " + cmsp(full_members) + " base off of array " + full_members)
 
                 //use recursion to do this properly maybe?
                 var addutjoin = function (err, result3, solution = false) {
