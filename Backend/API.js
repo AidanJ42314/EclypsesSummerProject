@@ -149,28 +149,34 @@ const exp = function (userin) {
         connection.query("INSERT INTO threads (userid, created_time, last_used) VALUES (?, ?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
             if (err) throw err;
 
+            console.log("creating thread")
+
             //find the thread we just created, and put it in threadid
             connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.session.userid], function (err, result2) {
                 if (err) throw err;
+
+                console.log("thread with id " + result2[0].threadid + "created")
 
                 var failed_users = [];
 
                 //loop through and add all of the members to the thread
                 var members = req.body.members;
+                members.push(req.session.userID);
                 for (var i = 0; i < members.length; i++) {
 
-                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?)", [req.session.userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
+                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members[i].userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
                         if (err) {
                             failed_users.push(members[i]);
                         }
 
+                        console.log("message thing from userid " + members[i].userid + ": " + result3)
+
                         //if we are done and there are no failures, send a sucess message, otherwise, send a response including all failed members
                         if (i === members.length - 1) {
                             if (failed_users.length !== 0) {
-                                res.json({ success: false, failed_users: failed_users });
-                            } else {
-                                res.json({ success: true });
+                                //yea not using this
                             }
+                            res.redirect("/" + result2[0].threadid)
                         }
 
                     });
