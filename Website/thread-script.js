@@ -37,7 +37,8 @@ var updateList = function () {
 var users = [];
 var addUser = function () {
     users.push(userbox.value);
-    value = "";
+    userbox.value = "";
+    updateList();
 }
 
 //create a thread with the selected users
