@@ -159,7 +159,7 @@ const exp = function (userin) {
 
                 //loop through and add all of the members to the thread
                 var members = req.body.members;
-                var full_members = req.body.members;
+                var full_members = req.body.members.push(req.session.userid);
 
                 //use recursion to do this properly maybe?
                 var addutjoin = function (err, result3, solution = false) {
