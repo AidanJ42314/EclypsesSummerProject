@@ -26,15 +26,18 @@ var update = function () {
 
 update();
 
+var updateList = function () {
+    usersDOC.innerHTML = "Users:";
+    for (var i = 0; i < users.length; i++) {
+        usersDOC.innerHTML += "\n" + users[i];
+    }
+}
+
 //add a user to the new thread list
 var users = [];
 var addUser = function () {
     users.push(userbox.value);
     value = "";
-    usersDOC.innerHTML = "Users:";
-    for (var i = 0; i < users.length; i++) {
-        usersDOC.innerHTML += users[i] + "\n";
-    }
 }
 
 //create a thread with the selected users
