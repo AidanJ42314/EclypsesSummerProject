@@ -46,7 +46,7 @@ var newThread = function () {
     fetch("http://10.101.110.181:3001/threads", JSON.stringify({
         method: "post",
         body: {
-            members: us
+            members: users
         }
-    ))
+    }))
 }
