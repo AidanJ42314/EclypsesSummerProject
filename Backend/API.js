@@ -147,11 +147,11 @@ const exp = function (userin) {
 
         //create the thread
         connection.query("INSERT INTO threads (userid, created_time, last_used) VALUES (?, ?)", [req.session.userid, Date.now(), Date.now()], function (err, result) {
-            if (err) throw error;
+            if (err) throw err;
 
             //find the thread we just created, and put it in threadid
             connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.session.userid], function (err, result2) {
-                if (err) throw error;
+                if (err) throw err;
 
                 var failed_users = [];
 
