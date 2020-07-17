@@ -1,0 +1,56 @@
+*
+
+{
+    margin: 0;
+    padding: 0;
+
+}
+
+
+.row
+{
+    max-width: 1200px;
+    margin: auto;
+}
+
+.hero
+{
+    position: absolute;
+    width: 1200px;
+    height: 10px;
+    margin-left: 0;
+    margin-top: 0;
+}
+
+.button
+{
+    margin-top: 30px;
+    margin-left: 440px;
+}
+
+.btn
+{
+    border-radius: 50px;
+    border: 1px solid black;
+    padding: 10px 30px;
+    color: black;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.btn-1 {
+    background-color: #d6cce0;
+    font-family: "Roboto", sans-serif;
+}
+
+.btn-2
+{
+    font-family: "Roboto", sans-serif;
+}
+
+    .btn-2:hover {
+        background-color: #d6cce0;
+        transition: all 0.12s ease-in;
+    }
