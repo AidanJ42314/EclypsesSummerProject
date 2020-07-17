@@ -15,7 +15,7 @@ const exp = function (userin) {
     //function to separate a list strings with commas
     var cmsp = function (values) {
         var end = "";
-        for (var i = 0; i < values.length() - 1; i++) {
+        for (var i = 0; i < values.length - 1; i++) {
             end += values[i] + ", ";
         }
         end += values[values.length - 1];
