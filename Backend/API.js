@@ -155,7 +155,7 @@ const exp = function (userin) {
             connection.query("SELECT threadid FROM threads WHERE userid=? ORDER BY created_time DESC LIMIT 1", [req.session.userid], function (err, result2) {
                 if (err) throw err;
 
-                console.log("thread with id " + result2[0].threadid + "created")
+                console.log("thread with id " + result2[0].threadid + " created")
 
                 var failed_users = [];
 
@@ -164,7 +164,7 @@ const exp = function (userin) {
                 members.push(req.session.userID);
                 for (var i = 0; i < members.length; i++) {
 
-                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members[i].userid, result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
+                    connection.query("INSERT INTO utjoin (userid, threadid, name) VALUES (?, ?, ?)", [members[i], result2[0].threadid, cmsp(members.splice(i))], function (err, result3) {
                         if (err) {
                             failed_users.push(members[i]);
                         }
